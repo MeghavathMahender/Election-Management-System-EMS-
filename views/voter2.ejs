@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification - Step 2</title>
+    <link rel="stylesheet" href="emailotp.css">
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+</head>
+
+<body>
+    <img src="iiitglogo.jpeg" alt="IIITG Logo" class="logo">
+    <div class="form">
+        <h1>OTP Using JavaScript</h1>
+        <input type="email" id="email" placeholder="Enter Email...">
+        <div class="otpverify">
+            <input type="text" id="otp_inp" placeholder="Enter the OTP sent to your Email...">
+            <button class="btn" id="otp-btn" onclick="verifyOTP()">Verify</button>
+        </div>
+        <button class="btn" onclick="sendOTP()">Send OTP</button>
+    </div>
+    <script src="emailotp.js"></script>
+    <script>
+        function sendOTP() {
+            const email = document.getElementById('email');
+            const otpverify = document.getElementsByClassName('otpverify')[0];
+            const domain = email.value.split('@')[1];
+
+            if (domain !== 'iiitg.ac.in') {
+                alert('Email domain must be @iiitg.ac.in');
+                return;
+            }
+
+            let otp_val = Math.floor(Math.random() * 10000);
+
+            let emailbody = `<h2>Your OTP is </h2>${otp_val}`;
+            Email.send({
+                SecureToken: "bee42de2-71e7-4221-b865-9afe8ad36348",
+                To: email.value,
+                From: "chouhan.anjali21b@iiitg.ac.in",
+                Subject: "Email OTP using JavaScript",
+                Body: emailbody,
+            }).then(
+
+                message => {
+                    if (message === "OK") {
+                        alert("OTP sent to your email " + email.value);
+
+                        otpverify.style.display = "flex";
+                        const otp_inp = document.getElementById('otp_inp');
+                        const otp_btn = document.getElementById('otp-btn');
+
+                        otp_btn.addEventListener('click', () => {
+                            if (otp_inp.value == otp_val) {
+                                alert("Email address verified...");
+                                window.location.href = 'voter3.html'; // Redirect to voter3.html if OTP is correct
+                            } else {
+                                alert("Invalid OTP");
+                            }
+                        })
+                    }
+                }
+            );
+        }
+    </script>
+</body>
+</html>

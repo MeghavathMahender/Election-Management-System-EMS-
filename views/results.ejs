@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100px; /* Adjust the width as needed */
+        }
+
+        .header-box {
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px; /* Add margin top */
+        }
+
+        .results-container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            width: 80%;
+            height: 80%;
+            overflow-y: auto;
+            animation: slideUp 1s ease forwards;
+        }
+
+        .candidate-info {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #e0e0e0;
+        }
+
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0%);
+            }
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        h2 {
+            color: #555;
+            margin-top: 0;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <img src="/images/iiitglogo.jpeg" alt="IIITG Logo" class="logo">
+    <div class="header-box">
+        <h1>Results Page</h1>
+    </div>
+
+    <div class="results-container">
+        <!-- Candidate information for President -->
+        <h2>President</h2>
+        <% for(var i = 0; i < candidate_data.length; i++) { %>
+            <% if(candidate_data[i].position === 'President' && candidate_data[i].position_rank === 1) { %>
+                <div class="candidate-info">
+                    <p><%= candidate_data[i].name %></p>
+                    <p>Votes Won: <%= candidate_data[i].number_of_votes %></p>
+                    <p><%= candidate_data[i].position_rank_desc %></p>
+                </div>
+            <% } else if(candidate_data[i].position === 'President' && candidate_data[i].position_rank === 2) { %>
+                <div class="candidate-info">
+                    <p><%= candidate_data[i].name %></p>
+                    <p>Votes Won: <%= candidate_data[i].number_of_votes %></p>
+                    <p><%= candidate_data[i].position_rank_desc %></p>
+                </div>
+            <% } %>
+        <% } %>
+
+        <!-- Candidate information for Vice President -->
+        <h2>Vice President</h2>
+        <% for(var i = 0; i < candidate_data.length; i++) { %>
+            <% if(candidate_data[i].position === 'Vice President' && candidate_data[i].position_rank === 1) { %>
+                <div class="candidate-info">
+                    <p><%= candidate_data[i].name %></p>
+                    <p>Votes Won: <%= candidate_data[i].number_of_votes %></p>
+                    <p><%= candidate_data[i].position_rank_desc %></p>
+                </div>
+            <% } else if(candidate_data[i].position === 'Vice President' && candidate_data[i].position_rank === 2) { %>
+                <div class="candidate-info">
+                    <p><%= candidate_data[i].name %></p>
+                    <p>Votes Won: <%= candidate_data[i].number_of_votes %></p>
+                    <p><%= candidate_data[i].position_rank_desc %></p>
+                </div>
+            <% } %>
+        <% } %>
+
+        <!-- Candidate information for General Secretary - Technical Board -->
+        <h2>General Secretary - Technical Board</h2>
+        <% for(var i = 0; i < candidate_data.length; i++) { %>
+            <% if(candidate_data[i].position === 'General Secretary - Technical Board' && candidate_data[i].position_rank === 1) { %>
+                <div class="candidate-info">
+                    <p><%= candidate_data[i].name %></p>
+                    <p>Votes Won: <%= candidate_data[i].number_of_votes %></p>
+                    <p><%= candidate_data[i].position_rank_desc %></p>
+                </div>
+            <% } else if(candidate_data[i].position === 'General Secretary - Technical Board' && candidate_data[i].position_rank === 2) { %>
+                <div class="candidate-info">
+                    <p><%= candidate_data[i].name %></p>
+                    <p>Votes Won: <%= candidate_data[i].number_of_votes %></p>
+                    <p><%= candidate_data[i].position_rank_desc %></p>
+                </div>
+            <% } %>
+        <% } %>
+
+        <!-- Candidate information for General Secretary - Sports Board -->
+        <h2>General Secretary - Sports Board</h2>
+        <% for(var i = 0; i < candidate_data.length; i++) { %>
+            <% if(candidate_data[i].position === 'General Secretary - Sports Board' && candidate_data[i].position_rank === 1) { %>
+                <div class="candidate-info">
+                    <p><%= candidate_data[i].name %></p>
+                    <p>Votes Won: <%= candidate_data[i].number_of_votes %></p>
+                    <p><%= candidate_data[i].position_rank_desc %></p>
+                </div>
+            <% } else if(candidate_data[i].position === 'General Secretary - Sports Board' && candidate_data[i].position_rank === 2) { %>
+                <div class="candidate-info">
+                    <p><%= candidate_data[i].name %></p>
+                    <p>Votes Won: <%= candidate_data[i].number_of_votes %></p>
+                    <p><%= candidate_data[i].position_rank_desc %></p>
+                </div>
+            <% } %>
+        <% } %>
+
+        <!-- Candidate information for General Secretary - Welfare Board -->
+        <h2>General Secretary - Welfare Board</h2>
+        <% for(var i = 0; i < candidate_data.length; i++) { %>
+            <% if(candidate_data[i].position === 'General Secretary - Welfare Board' && candidate_data[i].position_rank === 1) { %>
+                <div class="candidate-info">
+                    <p><%= candidate_data[i].name %></p>
+                    <p>Votes Won: <%= candidate_data[i].number_of_votes %></p>
+                    <p><%= candidate_data[i].position_rank_desc %></p>
+                </div>
+            <% } else if(candidate_data[i].position === 'General Secretary - Welfare Board' && candidate_data[i].position_rank === 2) { %>
+                <div class="candidate-info">
+                    <p><%= candidate_data[i].name %></p>
+                    <p>Votes Won: <%= candidate_data[i].number_of_votes %></p>
+                    <p><%= candidate_data[i].position_rank_desc %></p>
+                </div>
+            <% } %>
+        <% } %>
+
+        <!-- Candidate information for General Secretary - Cultural Board -->
+        <h2>General Secretary - Cultural Board</h2>
+        <% for(var i = 0; i < candidate_data.length; i++) { %>
+            <% if(candidate_data[i].position === 'General Secretary - Cultural Board' && candidate_data[i].position_rank === 1) { %>
+                <div class="candidate-info">
+                    <p><%= candidate_data[i].name %></p>
+                    <p>Votes Won: <%= candidate_data[i].number_of_votes %></p>
+                    <p><%= candidate_data[i].position_rank_desc %></p>
+                </div>
+            <% } else if(candidate_data[i].position === 'General Secretary - Cultural Board' && candidate_data[i].position_rank === 2) { %>
+                <div class="candidate-info">
+                    <p><%= candidate_data[i].name %></p>
+                    <p>Votes Won: <%= candidate_data[i].number_of_votes %></p>
+                    <p><%= candidate_data[i].position_rank_desc %></p>
+                </div>
+            <% } %>
+        <% } %>
+
+    </div>
+</body>
+</html>

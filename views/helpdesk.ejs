@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+         
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100px; /* Adjust the width as needed */
+        }
+
+
+        .helpdesk-content {
+            width: 80%;
+            max-width: 600px;
+            margin-top: 20px; /* Add margin-top to center the content */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .helpdesk-title {
+            background-color: #000;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .helpdesk-title h1 {
+            margin-top: 0;
+        }
+
+        .contact-info {
+            background-color: #000;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .contact-info h2 {
+            margin-top: 0;
+        }
+
+        .contact-info p {
+            margin: 0; /* Remove default margin for p */
+        }
+
+        .contact-info p:first-child {
+            margin-bottom: 10px; /* Add margin-bottom for the first paragraph */
+        }
+
+        .review-box,
+        .complaint-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 100%; /* Make these boxes full width */
+        }
+
+        .review-box h2,
+        .complaint-box h2 {
+            color: #000;
+            margin-top: 0;
+        }
+
+        .complaint-box p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .complaint-box input[type="text"],
+        .complaint-box textarea {
+            width: calc(100% - 30px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #000;
+            border-radius: 3px;
+            box-sizing: border-box;
+            color: #000;
+        }
+
+        .submit-btn {
+            width: 150px;
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <img src="iiitglogo.jpeg" alt="IIITG Logo" class="logo">
+
+    <div class="contact-info">
+        <h2>Contact Information</h2>
+        <p>If you need further assistance, feel free to contact us at support@example.com.</p>
+    </div>
+
+    <div class="helpdesk-content">
+        <div class="helpdesk-title">
+            <h1>Helpdesk Page</h1>
+        </div>
+
+        <form id="helpdeskform">
+            <div class="review-box">
+                <h2>Review</h2>
+                <p>Please give your review below:</p>
+                <textarea rows="4" cols="50" id = 'review'></textarea>
+            </div>
+            <div class="complaint-box">
+                <h2>Complaints</h2>
+                <p>Please write your complaint below:</p>
+                <textarea rows="4" cols="50" id = 'complaint'></textarea>
+                <p>Your Name:</p>
+                <input type="text" id="name" name="name" placeholder="Your Name">
+            </div>
+            <input type="submit" class="submit-btn">
+        </form>
+    </div>
+    
+    <script>
+        document.getElementById("helpdeskform").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+            var formData = {}; // Create empty object for form data
+            formData['review'] = document.getElementById("review").value; // Add review to formData
+            formData['complaint'] = document.getElementById("complaint").value; // Add complaint to formData
+            formData['name'] = document.getElementById("name").value; // Add name to formData
+            console.log(formData); // Log formData to console
+
+            fetch('/helpdesk', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response from server:', data);
+                if (data.success) {
+                    alert(data.message); 
+                } else {
+                    alert(data.message); 
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem sending the form data:', error);
+                alert('Error: Enter valid data'); 
+            });
+
+        });
+    </script>
+    
+</body>
+</html>

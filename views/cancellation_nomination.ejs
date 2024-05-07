@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancellation of Candidate Nomination</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff; /* White background */
+            color: #000000; /* Black text color */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+          
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100px; /* Adjust the width as needed */
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h3 {
+            background-color: #f0f0f0; /* Light gray background */
+            border-left: 5px solid #333333; /* Dark gray left border */
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #cccccc;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        .button-container {
+            text-align: center;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: green; /* Black button background */
+            color: #ffffff; /* White button text color */
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #45a049;/* Darker shade on hover */
+        }
+       
+    </style>
+</head>
+<body>
+    <img src="/images/iiitglogo.jpeg" alt="IIITG Logo" class="logo">
+    <div class="container">
+        <h1>Cancellation of Candidate Nomination</h1>
+        <h3>Note: If you want to cancel your candidate nomination, please click the button below.</h3>
+        <form id="registrationForm" action="/registration/cancellation_nomination" method="post" enctype="multipart/form-data">
+            <label for="post"> post :</label>
+            <select id="post" name="post" required>
+                <option value="" disabled selected>Select Post</option>
+                <option value="President">President</option>
+                <option value="Vice President">Vice President</option>
+                <option value="General Secretary - Technical Board">General Secretary – Technical Board</option>
+                <option value="General Secretary - Cultural Board">General Secretary – Cultural Board</option>
+                <option value="General Secretary - Sports Board">General Secretary – Sports Board</option>
+                <option value="General Secretary - Welfare Board">General Secretary – Welfare Board</option>
+            </select>
+
+            <label for="name">Candidate Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="roll">Roll No.:</label>
+            <input type="text" id="roll" name="roll" required>
+
+            <label for="password">Password:</label>
+            <input type="text" id="password" name="password" required>
+
+            <div class="button-container">
+                <button type="submit" class="button">Cancel Nomination</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const registrationForm = document.getElementById('registrationForm');
+
+        registrationForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            // Create a JSON object to store form data
+            const formData = {
+                post: registrationForm.elements['post'].value,
+                name: registrationForm.elements['name'].value,
+                roll: registrationForm.elements['roll'].value,
+                password: registrationForm.elements['password'].value
+            };
+
+            console.log('Form data:', formData);
+
+            // Send form data to the server using Fetch API
+            fetch('/registration/cancellation_nomination', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response from server:', data);
+                if (data.success) {
+                    alert(data.message); 
+                } else {
+                    alert(data.message); 
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem sending the form data:', error);
+                // Handle error message here, such as showing an alert
+                alert('Failed to cancel nomination. Please try again later.');
+            });
+            });
+        });
+
+    </script>
+
+
+</body>
+</html>

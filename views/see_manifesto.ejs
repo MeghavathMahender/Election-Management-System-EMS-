@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manifesto</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #ffffff;
+        }
+
+        .manifesto-content {
+            max-width: 800px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            width: 100px;
+            top:auto; position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100px; /* Adjust the width as needed */
+
+            margin-bottom: 20px;
+        }
+
+        .post-module {
+            margin-bottom: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .post-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .candidates-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .candidate {
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="/images/iiitglogo.jpeg" alt="IIITG Logo" class="logo">
+        <div class="manifesto-content">
+            <h1>Manifesto of all candidates for SGC election</h1>
+            <hr>
+            <label for="president">President:</label><br>
+            <hr>
+            <% for(var i = 0 ; i < candidate_data.length ; i++) { %>
+                <% if(candidate_data[i]['position'] === 'President') { %>
+                    <p><%=candidate_data[i]['name']%></p>
+                    <a href="<%=candidate_data[i]['manifesto']%>">View Manifesto</a>
+                <% } %>
+            <% } %>
+
+            <br><br><br>
+            <hr>
+            <label for="vp">Vice President:</label><br>
+            <hr>
+            <% for(var i = 0 ; i < candidate_data.length ; i++) { %>
+                <% if(candidate_data[i]['position'] === 'Vice President') { %>
+                    <p><%=candidate_data[i]['name']%></p>
+                    <a href="<%=candidate_data[i]['manifesto']%>">View Manifesto</a>
+                <% } %>
+            <% } %>
+
+            <br><br><br>
+            <hr>
+            <label for="gstb">General Secretary - Technical Board:</label><br>
+            <hr>
+            <% for(var i = 0 ; i < candidate_data.length ; i++) { %>
+                <% if(candidate_data[i]['position'] === 'General Secretary - Technical Board') { %>
+                    <p><%=candidate_data[i]['name']%></p>
+                    <a href="<%=candidate_data[i]['manifesto']%>">View Manifesto</a>
+                <% } %>
+            <% } %>
+
+            <br><br><br>
+            <hr>
+            <label for="gscb">General Secretary - Cultural Board:</label><br>
+            <hr>
+            <% for(var i = 0 ; i < candidate_data.length ; i++) { %>
+                <% if(candidate_data[i]['position'] === 'General Secretary - Cultural Board') { %>
+                    <p><%=candidate_data[i]['name']%></p>
+                    <a href="<%=candidate_data[i]['manifesto']%>">View Manifesto</a>
+                <% } %>
+            <% } %>
+
+            <br><br><br>
+            <hr>
+            <label for="gssb">General Secretary - Sports Board:</label><br>
+            <hr>
+            <% for(var i = 0 ; i < candidate_data.length ; i++) { %>
+                <% if(candidate_data[i]['position'] === 'General Secretary - Sports Board') { %>
+                    <p><%=candidate_data[i]['name']%></p>
+                    <a href="<%=candidate_data[i]['manifesto']%>">View Manifesto</a>
+                <% } %>
+            <% } %>
+
+            <br><br><br>
+            <hr>
+            <label for="gswb">General Secretary - Welfare Board:</label><br>
+            <hr>
+            <% for(var i = 0 ; i < candidate_data.length ; i++) { %>
+                <% if(candidate_data[i]['position'] === 'General Secretary - Welfare Board') { %>
+                    <p><%=candidate_data[i]['name']%></p>
+                    <a href="<%=candidate_data[i]['manifesto']%>">View Manifesto</a>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+
+</body>
+</html>

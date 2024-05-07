@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Manifesto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 0;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333333;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+
+        input[type="file"] {
+            margin-top: 8px;
+            margin-bottom: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        span.error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <img src="/images/iiitglogo.jpeg" alt="IIITG Logo" class="logo">
+    <div class="container">
+        <h1>Student Election - Upload Manifesto</h1>
+        <form id="manifestoForm" action="/registration/upload_manifesto" method="post" enctype="multipart/form-data">
+            <label for="candidate_name">Candidate Name:</label>
+            <input type="text" name="candidate_name" placeholder="Candidate Name" required>
+
+            <label for="post">Post:</label>
+            <select name="position" required>
+                <option value="" disabled selected>Select Position</option>
+                <option value="President">President</option>
+                <option value="Vice President">Vice President</option>
+                <option value="General Secretary - Technical Board">General Secretary – Technical Board</option>
+                <option value="General Secretary - Cultural Board">General Secretary – Cultural Board</option>
+                <option value="General Secretary - Sports Board">General Secretary – Sports Board</option>
+                <option value="General Secretary - Welfare Board">General Secretary – Welfare Board</option>
+            </select>
+
+            <label for="roll_no">Roll NO.:</label>
+            <input type="text" name="roll_no" placeholder="Roll Number" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Enter your password" required>
+            <label for="upload_manifesto_link">Upload_Manifesto:</label>
+            <input type="text" name="manifesto" placeholder="<link>" required>
+
+
+
+            <button type="submit">Upload Manifesto</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const manifestoForm = document.getElementById('manifestoForm');
+
+    manifestoForm.addEventListener('submit', (event) => {
+        event.preventDefault(); 
+
+        const formData = {
+            candidate_name: manifestoForm.elements['candidate_name'].value,
+            position: manifestoForm.elements['position'].value,
+            roll_no: manifestoForm.elements['roll_no'].value,
+            password: manifestoForm.elements['password'].value,
+            manifesto: manifestoForm.elements['manifesto'].value
+        };
+
+        console.log('Form data:', formData);
+
+        fetch('/registration/upload_manifesto', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Response from server:', data);
+            if (data.success) {
+                alert(data.message); 
+            } else {
+                alert(data.message); 
+            }
+        })
+        .catch(error => {
+            console.error('There was a problem sending the form data:', error);
+            alert('Error: Enter valid data'); 
+        });
+    });
+});
+    </script>
+
+
+
+</body>
+</html>

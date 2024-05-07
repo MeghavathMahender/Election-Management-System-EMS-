@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:whitesmoke;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100px; /* Adjust the width as needed */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .registration-section {
+            margin-top: 20px;
+            background-color:rgb(230, 242, 250);
+            border-radius: 8px;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .registration-section h2 {
+            color:#055bb5;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        p {
+            color:black;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        a {
+            color:white;
+            text-decoration: none;
+            font-weight: bold;
+            width: 100%; /* Adjust width as needed */
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            background-color:#055bb5; /* Background color */
+            display: block;
+            text-align: center;
+        }
+        a:hover {
+            background-color: #055bb5; /* Hover background color */
+        }
+        h1 {
+            text-align: center;
+            color:#055bb5;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+    </style>
+</head>
+<body>
+    <img src="/images/iiitglogo.jpeg" alt="IIITG Logo" class="logo">
+    <div class="container">
+        <h1>Registration Page</h1>
+
+        <div class="registration-section">
+            <h2><a href="./registration/voter1">Voter Registration</a></h2>
+            <p>Register here if you are a voter.</p>
+        </div>
+        
+        <div class="registration-section">
+            <h2><a href="./registration/candidate_registration">Candidate Registration</a></h2>
+            <p>Register here if you are a candidate.</p>
+        </div>
+
+        <div class="registration-section">
+            <h2><a href="./registration/upload_manifesto">Upload Manifesto</a></h2>
+            <p>Upload your manifesto here.</p>
+        </div>
+
+        <div class="registration-section">
+            <h2><a href="./registration/cancellation_nomination">Cancellation of Candidate Nomination</a></h2>
+            <p>Cancel your candidate nomination here.</p>
+        </div>
+    </div>
+</body>
+</html>

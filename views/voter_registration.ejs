@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Registration Form</title>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="/emailotp.js"></script>
+    <link rel="stylesheet" href="/css/voter1.css">
+</head>
+<body>
+    <img src="/images/iiitglogo.jpeg" alt="IIITG Logo" class="logo">
+    <div class="container">
+        <h1>Student Election - Voter Registration Form</h1>
+        <form id="registrationForm">
+            <label for="name">Full Name:</label>
+            <input type="text" name="name" placeholder="Full Name" required>
+
+            <label for="batch">Degree:</label>
+            <select name="batch" required>
+                <option value="" disabled selected>Select degree</option>
+                <option value="B.Tech">B.Tech</option>
+                <option value="M.Tech">M.Tech</option>
+                <option value="Ph.D.">Ph.D.</option>
+            </select>
+
+            <label for="branch">Select Branch:</label>
+            <select name="branch" required>
+                <option value="" disabled selected>Select Branch</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Electronics">ECE</option>
+                <!-- Add more branches as needed -->
+            </select>
+
+            <label for="roll_no">Roll No:</label>
+            <input type="text" name="roll_no" placeholder="Roll Number" required>
+            <label for="email">E-mail:</label>
+            <div style="display: flex; align-items: center;">
+               <input type="email" name="email" id="email" placeholder="E-mail" required>
+               <button type="button" id="sendOtp" style="margin-left: 10px;" onclick="sendOTP()">Send OTP</button>
+           </div>
+            <span id="emailError" class="error"></span>
+
+            <label for="otp">OTP:</label>
+            <div style="display: flex; flex-direction: row;">
+                <input type="text" name="otp" id="otp" placeholder="OTP" required>
+                <input type="checkbox" name="check" id="box">
+            </div>
+            <span id="otpError" class="error"></span>
+
+            <label for="password">Create password:</label>
+            <input type="password" name="password" id="password" placeholder="Create password" required>
+
+            <label for="confirm_password">Confirm password:</label>
+            <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm password" required>
+            <span id="passwordError" class="error"></span>
+
+            <label for="declaration">Declaration by voter:</label>
+            <textarea name="declaration" rows="5" required readonly>
+                I solemnly declare that I will abide by the rules and regulations of the election process. 
+                I understand the importance of fair and unbiased voting. By registering as a voter, I commit to casting my vote responsibly.
+            </textarea>
+           
+            <div class="read-checkbox">
+                <input type="checkbox" name="read_declaration" id="read_declaration" required>
+                <label for="read_declaration">I have read and understood the declaration</label>
+            </div>
+
+
+            <button type="submit" id="registerButton" onclick="func()">Register</button>
+            
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        var flag = 0;
+        var otp;
+        const checkbox = document.querySelector('#box');
+        function isIIITGEmail(email) {
+            return email.endsWith("@iiitg.ac.in");
+        }
+
+        function sendOTP() {
+            const email = document.getElementById('email').value;
+            if (!isIIITGEmail(email)) {
+                flag = 0;
+                alert("Please enter a valid IIITG email address ending with '@iiitg.ac.in'.");
+                return;
+            }
+            otp = Math.floor(1000 + Math.random() * 9000);
+            console.log("OTP:", otp);
+
+            const emailBody = `<h2>Your OTP is: ${otp}</h2>`;
+
+            Email.send({
+                SecureToken: "bee42de2-71e7-4221-b865-9afe8ad36348",
+                To: email,
+                From: "chouhan.anjali21b@iiitg.ac.in",
+                Subject: "Email OTP using JavaScript",
+                Body: emailBody,
+            }).then(
+                message => {
+                    if (message === "OK") {
+                        alert("OTP sent to your email " + email);
+                    }
+                }
+            );
+        }
+
+        document.getElementById('box').addEventListener('click', function(event) {
+            const enteredOTP = document.getElementById('otp').value;
+            if(enteredOTP == otp) {
+                flag = 1;
+                console.log("validation success!");
+                alert("validation success!");
+
+            }else {
+                flag = 0;
+                alert("OTP is not valid!!");
+            }
+        });
+
+
+
+
+
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form data
+            const formData = {
+                name: document.querySelector('input[name="name"]').value,
+                batch: document.querySelector('select[name="batch"]').value,
+                branch: document.querySelector('select[name="branch"]').value,
+                roll_no: document.querySelector('input[name="roll_no"]').value,
+                email: document.querySelector('input[name="email"]').value,
+                otp: document.querySelector('input[name="otp"]').value,
+                password: document.querySelector('input[name="password"]').value,
+                confirm_password: document.querySelector('input[name="confirm_password"]').value,
+                declaration: document.querySelector('textarea[name="declaration"]').value,
+                read_declaration: document.querySelector('input[name="read_declaration"]').checked
+            };
+
+            console.log('Form data:', formData); 
+
+            if(!(formData.password == formData.confirm_password)) {
+                alert("passwords are not same!!");
+                flag = 0;
+                return;
+            }else{
+                flag = 1;
+            }
+
+            fetch('/registration/voter1', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response from server:', data);
+                if (data.success) {
+                    alert(data.message); // Show success message in an alert
+                    window.location.href = './voter_registration/voter_registrationsucces';
+                } else {
+                    // Reload the current page
+                    window.location.reload();
+                    alert(data.message); // Show error message in an alert
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem sending the form data:', error);
+                alert('Failed to register voter. Please try again later.'); // Show error message in an alert
+            });
+
+        });
+    </script>
+</body>
+</html>

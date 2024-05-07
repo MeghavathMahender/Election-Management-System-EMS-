@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 0;
+            color: #333; /* Text color */
+        }
+        
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100px; /* Adjust the width as needed */
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+        input[type="file"] {
+            margin-top: 8px;
+            margin-bottom: 16px;
+        }
+        button[type="submit"],
+        button[type="button"] {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s; /* Smooth hover effect */
+        }
+        button[type="submit"]:hover,
+        button[type="button"]:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        span.error {
+            color: red;
+            font-size: 0.9em;
+        }
+        .read-checkbox {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <img src="/images/iiitglogo.jpeg" alt="IIITG Logo" class="logo">
+    <div class="container">
+        <h1>Student Election - Candidate Registration Form</h1>
+            <form id="registrationForm"></form>
+            <label for="roll_no">Roll No:</label>
+            <input type="text" name="roll_no" placeholder="Roll Number" required>
+
+            
+            <label for="name">Name of Candidate (in block letter):</label>
+            <input type="text" name="name" placeholder="Full Name" required>
+            <label for="post">Candidature for post of:</label>
+            <select name="post" required>
+                <option value="" disabled selected>Select Post</option>
+                <option value="President">President</option>
+                <option value="Vice President">Vice President</option>
+                <option value="General Secretary - Technical Board">General Secretary - Technical Board</option>
+                <option value="General Secretary - Cultural Board">General Secretary - Cultural Board</option>
+                <option value="General Secretary - Sports Board">General Secretary - Sports Board</option>
+                <option value="General Secretary - Welfare Board">General Secretary - Welfare Board</option>
+            </select>
+
+
+            <label for="batch">Degree:</label>
+            <select name="batch" required>
+                <option value="" disabled selected>Select Batch</option>
+                <option value="B.Tech">B.Tech</option>
+                <option value="M.Tech">M.Tech</option>
+                <option value="Ph.D.">Ph.D.</option>
+            </select>
+
+            <label for="branch">Select Branch:</label>
+            <select name="branch" required>
+                <option value="" disabled selected>Select Branch</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Electronics">ECE</option>
+                <!-- Add more branches as needed -->
+            </select>
+            <label for="nominated_by">Nominated by:</label>
+            <input type="text" name="nominated_by" placeholder="Nominator's Name" required>
+            <label for="seconded_by">Seconded by:</label>
+            <input type="text" name="seconded_by" placeholder="Seconder's Name" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Enter your password" required>
+            <label for="declaration">Declaration by Candidate:</label>
+            <textarea name="declaration" rows="5" required readonly>
+I hereby put forward my candidature for the above mentioned post of the IIITG students election 2024. 
+            </textarea>
+
+            <div class="read-checkbox">
+                <input type="checkbox" name="read_declaration" id="read_declaration" required>
+                <label for="read_declaration">I have read and understood the declaration</label>
+            </div>
+            <!-- <label for="faculty_approval">Faculty Approval:</label>
+            <input type="file" name="faculty_approval" accept=".pdf, .doc, .docx" required>
+            <label for="upload manifesto">upload manifesto :</label>
+            <input type="file" name="upload maniesto" accept=".pdf, .doc, .docx" required> -->
+
+
+
+            <button type="submit" id="registerButton" onclick="submit()">Register</button>
+
+        </form>
+        <div id="result"></div>
+    </div>
+    
+    
+    <script>
+
+        function submit() {
+            const formData = {
+                post: document.querySelector('select[name="post"]').value,
+                name: document.querySelector('input[name="name"]').value,
+                batch: document.querySelector('select[name="batch"]').value,
+                branch: document.querySelector('select[name="branch"]').value,
+                roll_no: document.querySelector('input[name="roll_no"]').value,
+                nominated_by: document.querySelector('input[name="nominated_by"]').value,
+                seconded_by: document.querySelector('input[name="seconded_by"]').value,
+                declaration: document.querySelector('textarea[name="declaration"]').value,
+                read_declaration: document.querySelector('input[name="read_declaration"]').checked,
+                password: document.querySelector('input[name="password"]').value,
+            };
+
+            console.log('Form data:', formData); 
+
+            fetch('/registration/candidate_registration', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Form data sent successfully:', data);
+                    if (data.success) {
+                        window.location.href = './canndiate_registration/can_regsful';
+                    } else {
+                        alert("Failed to register candidate. Reason: " + data.message);
+                        window.location.href = '.';
+                    }
+                })
+                .catch(error => {
+                    console.error('There was a problem sending the form data:', error);
+                    alert("Please enter the valid data!!");
+            });
+
+        }
+
+    </script>
+
+</body>
+</html>

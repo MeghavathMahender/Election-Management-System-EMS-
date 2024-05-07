@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ballot Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 80px; /* Adjust the width as needed */
+        }
+ 
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            /* background-color: #000000;*/
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .module {
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            transition: box-shadow 0.3s ease;
+            border: 2px solid #000000;
+        }
+        .module:hover {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        .module h2 {
+            margin-top: 0;
+            color: #000000;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center; /* Align buttons to the center */
+            margin-top: 20px; /* Add space between module content and buttons */
+        }
+        .button-container a, .module-link a {
+            padding: 10px 20px;
+            background-color: hsl(123, 40%, 45%);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin: 0 10px; /* Add space between buttons */
+        }
+        .button-container a:hover, .module-link:hover a {
+            background-color: #45a049;
+        }
+        .button-container a:focus {
+            outline: none; /* Remove focus outline on buttons */
+        }
+    </style>
+</head>
+<body>
+    <img src="iiitglogo.jpeg" alt="IIITG Logo" class="logo">
+    <div class="container">
+        <!-- Login Module -->
+        <div class="module">
+            <h2>Login to Vote</h2>
+            <p>To cast your vote, please log in using your credentials.</p>
+            <!-- Button Container for Login -->
+            <div class="button-container">
+                <a href="./ballot/login">Login</a>
+            </div>
+        </div>
+
+        <!-- See Manifesto Module -->
+        <div class="module">
+            <h2>See Manifesto</h2>
+            <p>Explore the manifesto of candidates before casting your vote.</p>
+            <!-- Button Container for See Manifesto -->
+            <div class="button-container">
+                <a href="./ballot/see_manifesto">See Manifesto</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

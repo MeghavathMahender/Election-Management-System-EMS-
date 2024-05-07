@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f1f1;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100px; /* Adjust the width as needed */
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333333;
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="radio"] {
+            margin-right: 8px;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red; 
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <img src="/images/iiitglogo.jpeg" alt="IIITG Logo" class="logo">
+    <div class="container">
+        <h1>Voting Page</h1>
+        <form id="votingForm" action="/ballot/votting" method="post" enctype="multipart/form-data">
+            <label for="president">President:</label><br>
+            <% for(var i = 0 ; i < candidate_data.length ; i++) { %>
+                <% if(candidate_data[i]['position'] === 'President') { %>
+                    <input type="radio" id="president1" name="president" value="<%= candidate_data[i]['name'] %>">
+                    <label for="president1"><%= candidate_data[i]['name'] %></label><br>
+                <% } %>
+            <% } %>
+
+            <label for="vp">Vice President:</label><br>
+            <% for(var i = 0 ; i < candidate_data.length ; i++) { %>
+                <% if(candidate_data[i]['position'] === 'Vice President') { %>
+                    <input type="radio" id="vp1" name="vp" value="<%= candidate_data[i]['name'] %>">
+                    <label for="vp1"><%= candidate_data[i]['name'] %></label><br>
+                <% } %>
+            <% } %>
+
+            <label for="gstb">General Secretary - Technical Board:</label><br>
+            <% for(var i = 0 ; i < candidate_data.length ; i++) { %>
+                <% if(candidate_data[i]['position'] === 'General Secretary - Technical Board') { %>
+                    <input type="radio" id="gstb1" name="gstb" value="<%= candidate_data[i]['name'] %>">
+                    <label for="gstb1"><%= candidate_data[i]['name'] %></label><br>
+                <% } %>
+            <% } %>
+
+            <label for="gscb">General Secretary – Cultural Board:</label><br>
+            <% for(var i = 0 ; i < candidate_data.length ; i++) { %>
+                <% if(candidate_data[i]['position'] === 'General Secretary - Cultural Board') { %>
+                    <input type="radio" id="gscb1" name="gscb" value="<%= candidate_data[i]['name'] %>">
+                    <label for="gscb1"><%= candidate_data[i]['name'] %></label><br>
+                <% } %>
+            <% } %>
+
+            <label for="gssb">General Secretary – Sports Board:</label><br>
+            <% for(var i = 0 ; i < candidate_data.length ; i++) { %>
+                <% if(candidate_data[i]['position'] === 'General Secretary - Sports Board') { %>
+                    <input type="radio" id="gssb1" name="gssb" value="<%= candidate_data[i]['name'] %>">
+                    <label for="gssb1"><%= candidate_data[i]['name'] %></label><br>
+                <% } %>
+            <% } %>
+
+            <label for="gswb">General Secretary – Welfare Board:</label><br>
+            <% for(var i = 0 ; i < candidate_data.length ; i++) { %>
+                <% if(candidate_data[i]['position'] === 'General Secretary - Welfare Board') { %>
+                    <input type="radio" id="gswb1" name="gswb" value="<%= candidate_data[i]['name'] %>">
+                    <label for="gswb1"><%= candidate_data[i]['name'] %></label><br>
+                <% } %>
+            <% } %>
+            <button type="submit" onclick="submit_vote()">Cast Vote</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function submit_vote() {
+            const presidentInputs = document.querySelectorAll('input[name="president"]');
+            const vpInputs = document.querySelectorAll('input[name="vp"]');
+            const gstbInputs = document.querySelectorAll('input[name="gstb"]');
+            const gscbInputs = document.querySelectorAll('input[name="gscb"]');
+            const gssbInputs = document.querySelectorAll('input[name="gssb"]');
+            const gswbInputs = document.querySelectorAll('input[name="gswb"]');
+
+            // Function to get the selected value from radio inputs
+            const getSelectedValue = (inputs) => {
+                const selectedInput = Array.from(inputs).find(input => input.checked);
+                return selectedInput ? selectedInput.value : null;
+            };
+
+            // Initialize an empty object to store form data
+            const formData = {
+                president: getSelectedValue(presidentInputs),
+                vp: getSelectedValue(vpInputs),
+                gstb: getSelectedValue(gstbInputs),
+                gscb: getSelectedValue(gscbInputs),
+                gssb: getSelectedValue(gssbInputs),
+                gswb: getSelectedValue(gswbInputs)
+            };
+
+            console.log(formData);
+
+            fetch('/ballot/votting', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Form data sent successfully:', data);
+                    if (data.success) {
+                        alert("Your vote is casted successful👍!!");
+                    } else {
+                        alert("Your vote is casted Failure!!");
+                        window.location.href = '.';
+                    }
+                })
+                .catch(error => {
+                    console.error('There was a problem sending the form data:', error);
+                    alert("Please enter the valid data!!");
+            });
+
+
+
+        }
+    </script>
+
+</body>
+</html>

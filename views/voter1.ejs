@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Registration Form</title>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <link rel="stylesheet" href="/css/voter1.css">
+</head>
+<body>
+    <img src="/images/iiitglogo.jpeg" alt="IIITG Logo" class="logo">
+    <div class="container">
+        <h1>Student Election - Voter Registration Form</h1>
+        <form id="registrationForm"  enctype="multipart/form-data">
+            <label for="name">Full Name:</label>
+            <input type="text" name="name" placeholder="Full Name" required>
+
+            <label for="batch" >Batch:</label>
+            <select name="batch" required>
+                <option value="" disabled selected>Select Batch</option>
+                <option value="B.Tech">B.Tech</option>
+                <option value="M.Tech">M.Tech</option>
+                <option value="Ph.D.">Ph.D.</option>
+            </select>
+
+            <label for="branch" autocomplete="off">Select Branch:</label>
+            <select name="branch" required>
+                <option value="" disabled selected>Select Branch</option>
+                <option value="ComputerScience">Computer Science</option>
+                <option value="Electronics">ECE</option>
+                <!-- Add more branches as needed -->
+            </select>
+
+            <label for="roll_no">Roll No:</label>
+            <input type="text" name="roll_no" placeholder="Roll Number" required>
+
+            <button type="submit" id="nextButton" onclick="redirectToVoter2()">NEXT</button>
+        </form>
+    </div>
+
+
+    
+    
+</body>
+</html>
